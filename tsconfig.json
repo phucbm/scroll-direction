@@ -10,9 +10,11 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "outDir": "./dist",
+    "rootDir": ".",
     "declaration": true,
     "sourceMap": true,
     "isolatedModules": true,
+    "types": ["jest", "node"],
     "lib": [
       "ES2020",
       "DOM",
