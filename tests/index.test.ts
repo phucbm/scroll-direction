@@ -71,6 +71,18 @@ describe('createScrollDirection', () => {
             sd.destroy();
         });
 
+        test('should count scroll 0 as top even with topOffset 0', () => {
+            const sd = createScrollDirection({topOffset: () => 0});
+
+            expect(sd.getState().position).toBe('top');
+
+            scrollTo(1);
+            sd.update();
+            expect(sd.getState().position).toBe('middle');
+
+            sd.destroy();
+        });
+
         test('should read topOffset from a function on every update', () => {
             let headerHeight = 80;
             const sd = createScrollDirection({topOffset: () => headerHeight});

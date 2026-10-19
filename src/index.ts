@@ -71,7 +71,8 @@ export const createScrollDirection = (config: ScrollDirectionConfig = {}): Scrol
 
     const getPosition = (y: number): ScrollPosition => {
         const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-        if (y < resolve(options.topOffset)) return 'top';
+        // At the very top always counts, also with topOffset 0 (or a header not measured yet)
+        if (y <= 0 || y < resolve(options.topOffset)) return 'top';
         if (maxScroll - y < resolve(options.bottomOffset)) return 'bottom';
         return 'middle';
     };
