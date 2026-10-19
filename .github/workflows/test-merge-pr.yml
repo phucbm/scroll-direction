@@ -1,0 +1,22 @@
+name: Test PRs
+
+on:
+  pull_request:
+    types: [ opened, synchronize ]
+  issue_comment:
+    types: [ created ]
+
+permissions:
+  contents: write      # To auto-merge PRs
+  pull-requests: write # To comment on PRs
+  issues: write        # To comment on PRs
+
+jobs:
+  test:
+    if: github.event_name == 'pull_request' || contains(github.event.comment.body, '/test')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test and merge PR # https://github.com/marketplace/actions/test-pr-action
+        uses: phucbm/test-pr-action@v1
+        with:
+          dependabot-auto-merge: 'false'  # Optional: auto-merge Dependabot PRs

@@ -1,0 +1,68 @@
+{
+  "name": "@phucbm/scroll-direction",
+  "version": "0.1.0",
+  "description": "Scroll direction and position as classes (is-scroll-up, is-scroll-down, is-scroll-top…) for sticky headers; no dependencies",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "pnpm run clean && tsup",
+    "clean": "rm -rf dist",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "prepublishOnly": "pnpm run build",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "typescript",
+    "scroll",
+    "scroll-direction",
+    "sticky-header",
+    "utility"
+  ],
+  "author": {
+    "name": "phucbm",
+    "url": "https://github.com/phucbm"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/phucbm/scroll-direction.git"
+  },
+  "bugs": {
+    "url": "https://github.com/phucbm/scroll-direction/issues"
+  },
+  "homepage": "https://github.com/phucbm/scroll-direction",
+  "devDependencies": {
+    "@phucbm/banner": "^0.0.2",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.6.2",
+    "jest": "^30.2.0",
+    "jest-environment-jsdom": "^30.2.0",
+    "ts-jest": "^29.4.4",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.3"
+  },
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "sideEffects": false
+}

@@ -1,0 +1,41 @@
+name: Publish to npm on release
+
+on:
+  release:
+    types: [ published ]  # Triggers when you publish a release through GitHub UI
+  workflow_dispatch:      # Enables manual trigger via GitHub web
+    inputs:
+      skip-tests:
+        description: 'Skip tests'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write  # To push updated files back to main
+  id-token: write  # OIDC trusted publishing (https://docs.npmjs.com/trusted-publishers)
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          ref: main  # Always checkout main branch, not the tag
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0  # Fetch all history
+
+      - name: Publish NPM Package
+        uses: phucbm/publish-npm-action@v1 # Docs https://github.com/phucbm/publish-npm-action
+        with:
+          # No npm token: npm trusts this workflow file (publish.yml), set once per package on npmjs.com
+          node-version: '22'                                 # OIDC needs npm 11.5.1+, which needs Node 20.17+
+          skip-tests: ${{ github.event.inputs.skip-tests || 'false' }}
+          pnpm-version: '10'                                 # Matches lockfileVersion 9.0
+          # build-command: 'npm run build:prod'              # Build command, default is 'pnpm build' (use '' to skip build)
+          # install-command: 'npm ci'                        # Install command, default is 'pnpm install --no-frozen-lockfile'
+          # test-command: 'npm run test:ci'                  # Test command, default is 'pnpm test'
+          # publish-access: 'restricted'                     # NPM access level, default is 'public'
+          # output-dir: 'build/'                             # Output directory, default is 'dist/'
+          # target-branch: 'develop'                         # Target branch, default is 'main'
+          # commit-files: 'CHANGELOG.md docs/ types/'        # Additional files to commit, default is ''
