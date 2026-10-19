@@ -1,6 +1,6 @@
 {
   "name": "@phucbm/scroll-direction",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Scroll direction and position as classes (is-scroll-up, is-scroll-down, is-scroll-top…) for sticky headers; no dependencies",
   "type": "module",
   "main": "dist/index.js",
